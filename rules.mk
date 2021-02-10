@@ -49,7 +49,7 @@ CSTD		?= -std=c99
 ###############################################################################
 # Source files
 
-OBJS		+= $(BINARY).o 
+OBJS		+= main.o
 OBJS		+= st7565r.o 
 OBJS		+= delay.o 
 
@@ -209,9 +209,13 @@ print-%:
 	@#printf "  CXX     $(*).cpp\n"
 	$(Q)$(CXX) $(TGT_CXXFLAGS) $(CXXFLAGS) $(TGT_CPPFLAGS) $(CPPFLAGS) -o $(*).o -c $(*).cpp
 
-clean:
+clean: tempclean
+	@#printf "  TEMPCLEAN\n"
+	$(Q)$(RM) *.bin
+
+tempclean:
 	@#printf "  CLEAN\n"
-	$(Q)$(RM) *.o *.d *.elf *.bin *.hex *.srec *.list *.map generated.* ${OBJS} ${OBJS:%.o:%.d}
+	$(Q)$(RM) *.o *.d *.elf *.hex *.srec *.list *.map generated.* ${OBJS} ${OBJS:%.o:%.d}
 
 stylecheck: $(STYLECHECKFILES:=.stylecheck)
 styleclean: $(STYLECHECKFILES:=.styleclean)

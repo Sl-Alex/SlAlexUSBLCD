@@ -17,9 +17,14 @@
 ## along with this library.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-BINARY = stm32_usb_display
+BINARY = SlAlexUSBLCD
 CSTD = -std=gnu99
 
+ifdef Bootloader
 LDSCRIPT = F103C8_BL.ld
+BINARY := $(BINARY)_BL
+else
+LDSCRIPT = F103C8.ld
+endif
 
 include target.mk
